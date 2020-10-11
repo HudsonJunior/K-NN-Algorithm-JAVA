@@ -51,7 +51,8 @@ public class Main {
                     String classeTest = sampleTest.get(lastIndex - 1);
 
                     List<Double> X;
-                    sampleTest.remove(lastIndex);
+                    System.out.println(lastIndex - 1);
+                    sampleTest.remove(lastIndex-1);
 
                     X = Helpers.stringListToDouble(sampleTest);
 
