@@ -1,4 +1,4 @@
-//package com.company;
+package src;
 
 import java.io.File;
 import java.util.Scanner;
@@ -14,6 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Digite: nome do arquivo train + nome do arquivo test + k");
+
+        Scanner testScanner = null;
 
         try {
             fileNameTrain = args[0];
@@ -37,7 +39,7 @@ public class Main {
 
                 int i = 1;
 
-                Scanner testScanner = new Scanner(Test);
+                testScanner = new Scanner(Test);
 
                 while (testScanner.hasNextLine()) {
                     String x = testScanner.nextLine();
@@ -59,9 +61,9 @@ public class Main {
                     String result = knn.Classificar(Base, X, k);
 
                     System.out.println("Análise exemplo de teste" + i);
-                    System.out.println("Classe preditada:" + "result" + "\nClasse do exemplo:" + classeTest);
+                    System.out.println("Classe preditada:" + result + "\nClasse do exemplo:" + classeTest);
 
-                    if("result".equals(classeTest))
+                    if(result.equals(classeTest))
                         System.out.println("Sucesso na predição");
                     else
                         System.out.println("Falha na predição");
@@ -76,6 +78,9 @@ public class Main {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+        finally{
+            testScanner.close();
         }
     }
 }

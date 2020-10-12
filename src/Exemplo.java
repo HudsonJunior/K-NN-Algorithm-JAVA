@@ -1,4 +1,4 @@
-//package com.company;
+package src;
 
 public class Exemplo implements Comparable<Exemplo> {
     private String classe;
