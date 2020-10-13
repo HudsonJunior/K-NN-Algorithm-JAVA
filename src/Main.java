@@ -1,5 +1,3 @@
-package src;
-
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -31,8 +29,8 @@ public class Main {
 
             typeFileTrain = fileTrainSplited[0];
             sizeFileTrain = fileTrainSplited[1];
-
-            if (Helpers.tipoValidos(typeFileTest, typeFileTrain) && Helpers.tamanhosValidos(sizeFileTest, sizeFileTrain)) {
+            
+            if((Helpers.tipoValidos(typeFileTest, typeFileTrain)) && (Helpers.tamanhosValidos(sizeFileTest, sizeFileTrain))) {
                 File Base = new File(fileNameTrain);
 
                 File Test = new File(fileNameTest);

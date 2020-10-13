@@ -1,5 +1,3 @@
-package src;
-
 public class Exemplo implements Comparable<Exemplo> {
     private String classe;
     private Double distancia;
