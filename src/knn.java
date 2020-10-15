@@ -21,7 +21,7 @@ public class knn {
         
         try {
 
-            exemplosList = new LinkedList<Exemplo>();
+            exemplosList = new ArrayList<Exemplo>();
             baseScanner = new Scanner(B);
 
             while (baseScanner.hasNextLine()) {
@@ -37,7 +37,7 @@ public class knn {
 
                 classeTrain = sampleTrain.remove(lastIndex);
 
-                P = new LinkedList<Double>(Helpers.stringListToDouble(sampleTrain));
+                P = new ArrayList<Double>(Helpers.stringListToDouble(sampleTrain));
 
                 distancia = Helpers.calculaDistancia(P, X);
 
@@ -49,9 +49,9 @@ public class knn {
             Collections.sort(exemplosList);
 
             
-            ordeneredList = new LinkedList<Exemplo>(exemplosList);
+            ordeneredList = new ArrayList<Exemplo>(exemplosList);
 
-            kList = new LinkedList<Exemplo>(ordeneredList.subList(0, k)); 
+            kList = new ArrayList<Exemplo>(ordeneredList.subList(0, k)); 
 
             return classeMaisFrequente(kList);
 
