@@ -11,16 +11,17 @@ public class knn {
         List<String> sampleTrain;
         String classeTrain, E;
         Exemplo exemplo;
-        List<Exemplo> exemplosList = new ArrayList<>();
-        List<Exemplo> ordeneredList = new ArrayList<>();
+        List<Exemplo> exemplosList;
+        List<Exemplo> ordeneredList;
         List<Exemplo> kList;
 
         int lastIndex;
 
         Scanner baseScanner = null;
-
+        
         try {
 
+            exemplosList = new LinkedList<Exemplo>();
             baseScanner = new Scanner(B);
 
             while (baseScanner.hasNextLine()) {
@@ -28,15 +29,15 @@ public class knn {
 
                 sampleSplited = E.split(",");
 
-                sampleTrain = Arrays.asList(sampleSplited);
+                sampleTrain = new LinkedList<String>(Arrays.asList(sampleSplited));
 
-                lastIndex = sampleTrain.size();
+                lastIndex = sampleTrain.size() - 1;
 
-                classeTrain = sampleTrain.get(lastIndex - 1);
+                //classeTrain = sampleTrain.get(lastIndex);
 
-                sampleTrain.remove(lastIndex);
+                classeTrain = sampleTrain.remove(lastIndex);
 
-                P = Helpers.stringListToDouble(sampleTrain);
+                P = new LinkedList<Double>(Helpers.stringListToDouble(sampleTrain));
 
                 distancia = Helpers.calculaDistancia(P, X);
 
@@ -47,9 +48,10 @@ public class knn {
 
             Collections.sort(exemplosList);
 
-            ordeneredList = exemplosList;
+            
+            ordeneredList = new LinkedList<Exemplo>(exemplosList);
 
-            kList = ordeneredList.subList(0, k);
+            kList = new LinkedList<Exemplo>(ordeneredList.subList(0, k)); 
 
             return classeMaisFrequente(kList);
 
@@ -74,7 +76,7 @@ public class knn {
             for (Exemplo e : List) {
                 classes.add(e.getClasse());
             }
-    
+            
             classeFrequente = classes.get(0);
     
             for (String i : classes) {
@@ -85,9 +87,10 @@ public class knn {
                     classeFrequente = i;
                 }
             }
-    
+           
             for (String i : classes) {
-                if (Collections.frequency(classes, i) == counter && !classes.contains(i)) {
+                
+                if (Collections.frequency(classes, i) == counter && !classesMaisFrequentes.contains(i)) {
                     classesMaisFrequentes.add(i);
                 }
             }

@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.io.FileNotFoundException;
 
 public class Main {
@@ -11,14 +12,19 @@ public class Main {
 
 
     public static void main(String[] args) {
-        System.out.println("Digite: nome do arquivo train + nome do arquivo test + k");
+        long startTime = System.nanoTime();
 
         Scanner testScanner = null;
+        int count = 0;
 
         try {
             fileNameTrain = args[0];
             fileNameTest = args[1];
             k = Integer.valueOf(args[2]);
+
+            File Base = new File(fileNameTrain);
+
+            File Test = new File(fileNameTest);
 
             String[] fileTestSplited = fileNameTest.split("_");
 
@@ -31,41 +37,38 @@ public class Main {
             sizeFileTrain = fileTrainSplited[1];
             
             if((Helpers.tipoValidos(typeFileTest, typeFileTrain)) && (Helpers.tamanhosValidos(sizeFileTest, sizeFileTrain))) {
-                File Base = new File(fileNameTrain);
-
-                File Test = new File(fileNameTest);
 
                 int i = 1;
 
                 testScanner = new Scanner(Test);
-
                 while (testScanner.hasNextLine()) {
                     String x = testScanner.nextLine();
 
                     String[] sampleSplited = x.split(",");
-                    List<String> sampleTest = new ArrayList<String>();
-                    sampleTest = Arrays.asList(sampleSplited);
 
-                    int lastIndex = sampleTest.size();
+                    List<String> sampleTest = new LinkedList<String>(Arrays.asList(sampleSplited));
+                
 
-                    String classeTest = sampleTest.get(lastIndex - 1);
+                    int lastIndex = sampleTest.size() - 1;
+
+                    //S//tring classeTest = sampleTest.get(lastIndex - 1);
 
                     List<Double> X;
-                    System.out.println(lastIndex - 1);
-                    sampleTest.remove(lastIndex-1);
+
+                    
+                    String classeTest = sampleTest.remove(lastIndex);
 
                     X = Helpers.stringListToDouble(sampleTest);
 
                     String result = knn.Classificar(Base, X, k);
 
-                    System.out.println("Análise exemplo de teste" + i);
-                    System.out.println("Classe preditada:" + result + "\nClasse do exemplo:" + classeTest);
-
-                    if(result.equals(classeTest))
+                    if(result.equals(classeTest)){
                         System.out.println("Sucesso na predição");
+                        count++;
+                    }
                     else
                         System.out.println("Falha na predição");
-
+                    
                     i = i + 1;
 
                 }
@@ -78,7 +81,11 @@ public class Main {
             e.printStackTrace();
         }
         finally{
+            System.out.println(count);
             testScanner.close();
+
+            long stopTime = System.nanoTime();
+            System.out.println("TEMPO DE EXECUÇÃO" + (stopTime - startTime));
         }
     }
 }
