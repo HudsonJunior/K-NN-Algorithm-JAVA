@@ -4,52 +4,50 @@ import java.util.*;
 
 public class knn {
 
-    public static String Classificar(File B, List<Double> X, int k) throws FileNotFoundException{
+    public static String Classificar(List<List<Double>> B, List<Double> X, int k, List<Exemplo> exemplosList) throws FileNotFoundException{
         Double distancia;
         String[] sampleSplited;
         List<Double> P;
         List<String> sampleTrain;
         String classeTrain, E;
         Exemplo exemplo;
-        List<Exemplo> exemplosList;
         List<Exemplo> ordeneredList;
         List<Exemplo> kList;
-
+        int i = 0;
         int lastIndex;
+        List<Exemplo> novaListaExemplo = new ArrayList<>();
 
         Scanner baseScanner = null;
         
         try {
 
-            exemplosList = new ArrayList<Exemplo>();
-            baseScanner = new Scanner(B);
+            for (List<Double> E: B) {
 
-            while (baseScanner.hasNextLine()) {
-                E = baseScanner.nextLine();
+                // sampleSplited = E.split(",");
 
-                sampleSplited = E.split(",");
+                // sampleTrain = new LinkedList<String>(Arrays.asList(sampleSplited));
 
-                sampleTrain = new LinkedList<String>(Arrays.asList(sampleSplited));
+                // lastIndex = sampleTrain.size() - 1;
 
-                lastIndex = sampleTrain.size() - 1;
+                // classeTrain = sampleTrain.remove(lastIndex);
 
-                //classeTrain = sampleTrain.get(lastIndex);
-
-                classeTrain = sampleTrain.remove(lastIndex);
-
-                P = new ArrayList<Double>(Helpers.stringListToDouble(sampleTrain));
+                // P = new ArrayList<Double>(Helpers.stringListToDouble(sampleTrain));
 
                 distancia = Helpers.calculaDistancia(P, X);
 
-                exemplo = new Exemplo(classeTrain, distancia);
+                exemplo = exemplosList.get(i);
 
-                exemplosList.add(exemplo);
+                exemplo.distancia = distancia;
+
+                novaListaExemplo.add(exemplo);
+                
+                i++;
             }
 
-            Collections.sort(exemplosList);
+            Collections.sort(novaListaExemplo);
 
             
-            ordeneredList = new ArrayList<Exemplo>(exemplosList);
+            ordeneredList = new ArrayList<Exemplo>(novaListaExemplo);
 
             kList = new ArrayList<Exemplo>(ordeneredList.subList(0, k)); 
 
@@ -61,7 +59,6 @@ public class knn {
             throw e;
 
         } finally{
-            baseScanner.close();
         }
     }
 

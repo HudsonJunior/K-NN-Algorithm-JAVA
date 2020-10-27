@@ -13,6 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
+        HashMap<String, Object> paramsTrain;
+        HashMap<String, Object> paramsTest;
 
         Scanner testScanner = null;
         int count = 0;
@@ -22,9 +24,16 @@ public class Main {
             fileNameTest = args[1];
             k = Integer.valueOf(args[2]);
 
-            File Base = new File(fileNameTrain);
+            paramsTrain = Helpers.fileToList(fileNameTrain);
+            paramsTest = Helpers.fileToList(fileNameTest);
 
-            File Test = new File(fileNameTest);
+            List<List<Double>> listDoubleBase = paramsTrain.get("listDouble");
+            
+            List<List<Double>> listDoubleTest = paramsTest.get("listDouble");
+
+            List<String> listClassesBase = paramsTrain.get("classedList");
+
+            List<String> listClassesTest = paramsTest.get("classedList");
 
             String[] fileTestSplited = fileNameTest.split("_");
 
@@ -40,27 +49,22 @@ public class Main {
 
                 int i = 1;
 
-                testScanner = new Scanner(Test);
-                while (testScanner.hasNextLine()) {
-                    String x = testScanner.nextLine();
+                for (List<Double> X: listDoubleTest) {
 
-                    String[] sampleSplited = x.split(",");
+                    // String[] sampleSplited = x.split(",");
 
-                    List<String> sampleTest = new LinkedList<String>(Arrays.asList(sampleSplited));
+                    // List<String> sampleTest = new LinkedList<String>(Arrays.asList(sampleSplited));
                 
 
-                    int lastIndex = sampleTest.size() - 1;
+                    // int lastIndex = sampleTest.size() - 1;
 
-                    //S//tring classeTest = sampleTest.get(lastIndex - 1);
+                    // List<Double> X;
+ 
+                    // String classeTest = sampleTest.remove(lastIndex);
 
-                    List<Double> X;
+                    // X = Helpers.stringListToDouble(sampleTest);
 
-                    
-                    String classeTest = sampleTest.remove(lastIndex);
-
-                    X = Helpers.stringListToDouble(sampleTest);
-
-                    String result = knn.Classificar(Base, X, k);
+                    String result = knn.Classificar(listDoubleBase, X, k);
 
                     if(result.equals(classeTest)){
                         System.out.println("Sucesso na predição");
@@ -82,7 +86,6 @@ public class Main {
         }
         finally{
             System.out.println(count);
-            testScanner.close();
 
             long stopTime = System.nanoTime();
             System.out.println("TEMPO DE EXECUÇÃO" + (stopTime - startTime));

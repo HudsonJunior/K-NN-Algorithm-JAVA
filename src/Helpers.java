@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.nio.file.Files;
 
 public class Helpers {
 
@@ -54,5 +58,50 @@ public class Helpers {
             System.out.println("Ocorreu um erro ao calcular a distancia entre os pontos.\n" + e.getMessage());
             throw e;
         }   
+    }
+
+    public static HashMap<String, Object> fileToList(String fileName){
+        String[] sampleSplited;
+        List<Double> P;
+        List<String> sampleTrain;
+        String classeTrain;
+        List<List<Double>> listListDouble = new ArrayList<>();
+        Exemplo exemplo;
+        List<String> classedList;
+
+        try{
+            List<String> resultado;
+            HashMap<String, Object> params = new HashMap<>();
+
+            Stream<String> lines = Files.lines(Paths.get(fileName));
+            resultado = lines.collect(Collectors.toList());
+
+            for (String x: resultado){
+                sampleSplited = x.split(",");
+
+                sampleTrain = new LinkedList<String>(Arrays.asList(sampleSplited));
+
+                lastIndex = sampleTrain.size() - 1;
+
+                classeTrain = sampleTrain.remove(lastIndex);
+
+                P = new ArrayList<Double>(Helpers.stringListToDouble(sampleTrain));
+                
+                listListDouble.add(P);
+
+                classedList.add(classeTrain);
+                
+            }
+
+            params.put("listDouble", listListDouble);
+            params.put("classedList", classedList);
+
+            return params;
+
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Ocorreu um erro ao transformar arquivo em string.\n" + e.getMessage());
+            throw e;
+        }
     }
 }
