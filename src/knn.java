@@ -4,7 +4,7 @@ import java.util.*;
 
 public class knn {
 
-    public static String Classificar(List<List<Double>> B, List<Double> X, int k, List<Exemplo> exemplosList) throws FileNotFoundException{
+    public static String Classificar(List<List<Double>> B, List<Double> X, int k, List<String> exemplosList) throws FileNotFoundException{
         Double distancia;
         String[] sampleSplited;
         List<Double> P;
@@ -35,9 +35,9 @@ public class knn {
 
                 distancia = Helpers.calculaDistancia(P, X);
 
-                exemplo = exemplosList.get(i);
+                classeTrain = listClassesBase.get(i);
 
-                exemplo.distancia = distancia;
+                Exemplo exemplo = new Exemplo(classeTrain, distancia);
 
                 novaListaExemplo.add(exemplo);
                 

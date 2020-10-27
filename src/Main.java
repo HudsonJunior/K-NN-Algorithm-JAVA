@@ -64,7 +64,7 @@ public class Main {
 
                     // X = Helpers.stringListToDouble(sampleTest);
 
-                    String result = knn.Classificar(listDoubleBase, X, k);
+                    String result = knn.Classificar(listDoubleBase, X, k, listClassesBase);
 
                     if(result.equals(classeTest)){
                         System.out.println("Sucesso na predição");
