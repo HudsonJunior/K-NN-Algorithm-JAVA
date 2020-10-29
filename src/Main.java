@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.io.FileNotFoundException;
 
@@ -27,13 +28,13 @@ public class Main {
             paramsTrain = Helpers.fileToList(fileNameTrain);
             paramsTest = Helpers.fileToList(fileNameTest);
 
-            List<List<Double>> listDoubleBase = paramsTrain.get("listDouble");
+            List<List<Double>> listDoubleBase = (List<List<Double>>) paramsTrain.get("listDouble");
             
-            List<List<Double>> listDoubleTest = paramsTest.get("listDouble");
+            List<List<Double>> listDoubleTest = (List<List<Double>>) paramsTest.get("listDouble");
 
-            List<String> listClassesBase = paramsTrain.get("classedList");
+            List<String> listClassesBase = (List<String>) paramsTrain.get("classedList");
 
-            List<String> listClassesTest = paramsTest.get("classedList");
+            List<String> listClassesTest = (List<String>) paramsTest.get("classedList");
 
             String[] fileTestSplited = fileNameTest.split("_");
 
@@ -47,26 +48,13 @@ public class Main {
             
             if((Helpers.tipoValidos(typeFileTest, typeFileTrain)) && (Helpers.tamanhosValidos(sizeFileTest, sizeFileTrain))) {
 
-                int i = 1;
+                int i = 0;
 
                 for (List<Double> X: listDoubleTest) {
 
-                    // String[] sampleSplited = x.split(",");
-
-                    // List<String> sampleTest = new LinkedList<String>(Arrays.asList(sampleSplited));
-                
-
-                    // int lastIndex = sampleTest.size() - 1;
-
-                    // List<Double> X;
- 
-                    // String classeTest = sampleTest.remove(lastIndex);
-
-                    // X = Helpers.stringListToDouble(sampleTest);
-
                     String result = knn.Classificar(listDoubleBase, X, k, listClassesBase);
 
-                    if(result.equals(classeTest)){
+                    if(result.equals(listClassesTest.get(i))){
                         System.out.println("Sucesso na predição");
                         count++;
                     }
@@ -74,7 +62,7 @@ public class Main {
                         System.out.println("Falha na predição");
                     
                     i = i + 1;
-
+                    
                 }
             }
             else{

@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
@@ -66,8 +69,8 @@ public class Helpers {
         List<String> sampleTrain;
         String classeTrain;
         List<List<Double>> listListDouble = new ArrayList<>();
-        Exemplo exemplo;
-        List<String> classedList;
+        List<String> classedList = new ArrayList<>();
+        int lastIndex;
 
         try{
             List<String> resultado;
@@ -99,9 +102,10 @@ public class Helpers {
             return params;
 
         }catch(Exception e){
+            System.out.println(e.getMessage());
             e.printStackTrace();
             System.out.println("Ocorreu um erro ao transformar arquivo em string.\n" + e.getMessage());
-            throw e;
+            return null;
         }
     }
 }

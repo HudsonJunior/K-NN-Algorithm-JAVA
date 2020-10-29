@@ -4,17 +4,16 @@ import java.util.*;
 
 public class knn {
 
-    public static String Classificar(List<List<Double>> B, List<Double> X, int k, List<String> exemplosList) throws FileNotFoundException{
+    public static String Classificar(List<List<Double>> B, List<Double> X, int k, List<String> listClassesBase) throws FileNotFoundException{
         Double distancia;
         String[] sampleSplited;
-        List<Double> P;
-        List<String> sampleTrain;
-        String classeTrain, E;
+        List<Double> P = new ArrayList<>();
         Exemplo exemplo;
         List<Exemplo> ordeneredList;
         List<Exemplo> kList;
         int i = 0;
         int lastIndex;
+        String classeTrain;
         List<Exemplo> novaListaExemplo = new ArrayList<>();
 
         Scanner baseScanner = null;
@@ -23,21 +22,11 @@ public class knn {
 
             for (List<Double> E: B) {
 
-                // sampleSplited = E.split(",");
-
-                // sampleTrain = new LinkedList<String>(Arrays.asList(sampleSplited));
-
-                // lastIndex = sampleTrain.size() - 1;
-
-                // classeTrain = sampleTrain.remove(lastIndex);
-
-                // P = new ArrayList<Double>(Helpers.stringListToDouble(sampleTrain));
-
-                distancia = Helpers.calculaDistancia(P, X);
+                distancia = Helpers.calculaDistancia(E, X);
 
                 classeTrain = listClassesBase.get(i);
 
-                Exemplo exemplo = new Exemplo(classeTrain, distancia);
+                exemplo = new Exemplo(classeTrain, distancia);
 
                 novaListaExemplo.add(exemplo);
                 
@@ -53,10 +42,10 @@ public class knn {
 
             return classeMaisFrequente(kList);
 
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Ocorreu um problema ao classificar o exemplo.\n" + e.getMessage());
-            throw e;
+            return null;
 
         } finally{
         }
