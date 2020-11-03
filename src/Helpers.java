@@ -102,7 +102,6 @@ public class Helpers {
             return params;
 
         }catch(Exception e){
-            System.out.println(e.getMessage());
             e.printStackTrace();
             System.out.println("Ocorreu um erro ao transformar arquivo em string.\n" + e.getMessage());
             return null;

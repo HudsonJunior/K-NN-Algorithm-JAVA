@@ -26,6 +26,5 @@ public class Exemplo implements Comparable<Exemplo> {
     @Override
     public int compareTo(Exemplo e) {
         return this.getDistancia().compareTo(e.getDistancia());
-
     }
 }

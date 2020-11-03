@@ -6,17 +6,12 @@ public class knn {
 
     public static String Classificar(List<List<Double>> B, List<Double> X, int k, List<String> listClassesBase) throws FileNotFoundException{
         Double distancia;
-        String[] sampleSplited;
-        List<Double> P = new ArrayList<>();
         Exemplo exemplo;
         List<Exemplo> ordeneredList;
         List<Exemplo> kList;
         int i = 0;
-        int lastIndex;
         String classeTrain;
         List<Exemplo> novaListaExemplo = new ArrayList<>();
-
-        Scanner baseScanner = null;
         
         try {
 
@@ -35,7 +30,6 @@ public class knn {
 
             Collections.sort(novaListaExemplo);
 
-            
             ordeneredList = new ArrayList<Exemplo>(novaListaExemplo);
 
             kList = new ArrayList<Exemplo>(ordeneredList.subList(0, k)); 
@@ -47,7 +41,6 @@ public class knn {
             System.out.println("Ocorreu um problema ao classificar o exemplo.\n" + e.getMessage());
             return null;
 
-        } finally{
         }
     }
 
